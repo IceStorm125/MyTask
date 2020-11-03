@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit,Long> {
     int countAllByClient(Client client);
+
+
 }
