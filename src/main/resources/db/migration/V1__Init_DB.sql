@@ -1,3 +1,4 @@
+
 create table type_of_complex (
     id bigint auto_increment,
     type_name varchar(40),
