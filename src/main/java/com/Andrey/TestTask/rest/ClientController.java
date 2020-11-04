@@ -1,7 +1,9 @@
 package com.Andrey.TestTask.rest;
 
 import com.Andrey.TestTask.model.Client;
+import com.Andrey.TestTask.model.Discount;
 import com.Andrey.TestTask.service.ClientService;
+import com.Andrey.TestTask.service.DiscountService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
+    private final DiscountService discountService;
 
     @Autowired
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, DiscountService discountService) {
         this.clientService = clientService;
+        this.discountService = discountService;
     }
 
     @GetMapping("/all")
@@ -28,8 +32,8 @@ public class ClientController {
         return new ResponseEntity<>(clientService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable("id")Long clientId){
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Client> getClient(@PathVariable("id")Long clientId){
         Client client = clientService.getById(clientId);
 
         if (client == null){
@@ -49,7 +53,16 @@ public class ClientController {
         return new ResponseEntity<>(client,HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/discount/{id}")
+    public ResponseEntity<Discount> getClientDiscount(@PathVariable("id")Long clientId){
+        Discount discount = discountService.getById(clientId);
+        if (discount==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(discount,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Client> deleteClient(@PathVariable("id") Long clientId){
         Client client = clientService.getById(clientId);
 

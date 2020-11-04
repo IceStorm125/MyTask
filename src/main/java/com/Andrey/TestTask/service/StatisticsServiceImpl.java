@@ -18,10 +18,18 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public List<Object[]> getInfoForSportComplexesOrderByVisits() {
+    public List<Object[]> getSportComplexesWithCountOfVisitsInfo() {
         Query query = entityManager.createNativeQuery("SELECT SC.NAME,SC.ADDRESS, COUNT(*) AS VISITS FROM VISITS V\n" +
                 "JOIN SPORT_COMPLEX SC ON V.SPORT_COMPLEX_ID = SC.ID\n" +
                 "GROUP BY SC.NAME,SC.ADDRESS ORDER BY VISITS DESC;");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getCountOfClientsVisitsInfo() {
+        Query query = entityManager.createNativeQuery("SELECT C.FIRST_NAME, C.LAST_NAME,C.TEL_NO, COUNT(*) AS VISITS FROM VISITS V\n" +
+                "JOIN CLIENT C ON V.CLIENT_ID = C.ID\n" +
+                "GROUP BY C.FIRST_NAME, C.LAST_NAME ORDER BY VISITS DESC;");
         return query.getResultList();
     }
 }

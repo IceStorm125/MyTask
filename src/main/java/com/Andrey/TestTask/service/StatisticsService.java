@@ -7,5 +7,6 @@ import java.util.List;
 @Service
 public interface StatisticsService {
 
-    List<Object[]> getInfoForSportComplexesOrderByVisits();
+    List<Object[]> getSportComplexesWithCountOfVisitsInfo();
+    List<Object[]> getCountOfClientsVisitsInfo();
 }

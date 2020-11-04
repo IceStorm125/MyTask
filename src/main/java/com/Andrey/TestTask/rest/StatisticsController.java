@@ -1,5 +1,6 @@
 package com.Andrey.TestTask.rest;
 
+import com.Andrey.TestTask.DTO.ClientsInfo;
 import com.Andrey.TestTask.service.StatisticsService;
 import com.Andrey.TestTask.DTO.SportComplexInfo;
 import io.swagger.annotations.Api;
@@ -26,10 +27,10 @@ public class StatisticsController {
         this.statisticsService = statisticsService;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getSportComplexesOrderByVisits(){
+    @GetMapping("/sport-complex-info")
+    public ResponseEntity<List<SportComplexInfo>> getSportComplexesOrderByVisitsInfo(){
 
-        List<Object[]> list = statisticsService.getInfoForSportComplexesOrderByVisits();
+        List<Object[]> list = statisticsService.getSportComplexesWithCountOfVisitsInfo();
 
         List<SportComplexInfo> sportComplexInfos = new ArrayList<>();
         for (Object[] o:list) {
@@ -38,9 +39,29 @@ public class StatisticsController {
             sportComplexInfo.setAddress(o[0].toString());
             sportComplexInfo.setName(o[1].toString());
             sportComplexInfo.setCountOfVisits(Integer.parseInt(o[2].toString()));
+
             sportComplexInfos.add(sportComplexInfo);
         }
 
         return new ResponseEntity<>(sportComplexInfos, HttpStatus.OK);
+    }
+
+    @GetMapping("/clients-info")
+    public ResponseEntity<List<ClientsInfo>> getCountOfClientsVisitsInfo(){
+        List<Object[]> list = statisticsService.getCountOfClientsVisitsInfo();
+
+        List<ClientsInfo> clientsInfos = new ArrayList<>();
+        for (Object[] o:list){
+            ClientsInfo clientsInfo = new ClientsInfo();
+
+            clientsInfo.setFirstName(o[0].toString());
+            clientsInfo.setLastName(o[1].toString());
+            clientsInfo.setTelNumber(o[2].toString());
+            clientsInfo.setCountOfVisits(Integer.parseInt(o[3].toString()));
+
+            clientsInfos.add(clientsInfo);
+        }
+
+        return new ResponseEntity<>(clientsInfos,HttpStatus.OK);
     }
 }

@@ -1,5 +1,3 @@
-drop table if exists type_of_complex;
-
 create table type_of_complex (
     id bigint auto_increment,
     type_name varchar(40),
@@ -10,9 +8,6 @@ insert into type_of_complex(type_name) values('Gym');
 insert into type_of_complex(type_name) values('Football field');
 insert into type_of_complex(type_name) values('Table tennis');
 
--------------------------------------------------------------------------
-
-drop table if exists client;
 
 create table client(
      id bigint auto_increment,
@@ -26,9 +21,6 @@ create table client(
 insert into client(first_name,last_name,tel_no,home_address) values('Andrey','Kovalev','+375(29)6225418','Minsk,Surganova 23,4');
 insert into client(first_name,last_name,tel_no,home_address) values('Ivan','Ivanov','+375(29)4253235','Minsk,Horuzhey 12,53');
 
--------------------------------------------------------------------------
-
-drop table if exists sport_complex;
 
 create table sport_complex(
     id bigint auto_increment,
@@ -43,9 +35,6 @@ insert into sport_complex(name,address, type_of_complex_id) values('Power','Mins
 insert into sport_complex(name,address, type_of_complex_id) values('Skill','Minsk,Ostroshizkaja 12',1);
 insert into sport_complex(name,address, type_of_complex_id) values('Fire ball','Gomel,Ignatova 3',3);
 
--------------------------------------------------------------------------
-
-drop table if exists visits;
 
 create table visits(
     id bigint auto_increment,
@@ -61,9 +50,6 @@ insert into visits(client_id, sport_complex_id,visit_date) values (1,1,'2020-10-
 insert into visits(client_id, sport_complex_id,visit_date) values (2,1,'2020-11-01 19:30:00');
 insert into visits(client_id, sport_complex_id,visit_date) values (1,2,'2020-08-01 20:30:00');
 
--------------------------------------------------------------------------
-
-drop table if exists discount;
 
 create table discount(
     client_id bigint,
